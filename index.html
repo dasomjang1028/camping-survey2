@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>캠핑 스타일 설문 (오렌지 스타일)</title>
+  <title>스노우라인 캠핑 스타일 설문</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     :root {
@@ -167,17 +167,19 @@
     .option-btn.selected .option-mark {
       display: block;
     }
+    /* 결과 카드 좌우 마진 통일 */
     .result-card {
-      width: 92vw;
+      width: 92%;
       max-width: 430px;
       margin: 55px auto 0 auto;
       border-radius: 32px;
       background: linear-gradient(120deg,#fff8e1 80%,#ffe0b2 100%);
       box-shadow: 0 8px 32px rgba(255,152,0,0.12);
-      padding: 0 0 36px 0;
+      padding: 0 18px 36px 18px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      box-sizing: border-box;
     }
     .result-title {
       width: 100%;
@@ -194,11 +196,12 @@
       border-radius: 26px;
       box-shadow: 0 2px 14px rgba(255,152,0,0.08);
       margin: 0 auto 26px auto;
-      width: 89%;
+      width: 100%;
       max-width: 370px;
       padding: 34px 16px 25px 16px;
       position: relative;
       text-align: center;
+      box-sizing: border-box;
     }
     .result-tag {
       position: absolute;
@@ -269,7 +272,7 @@
       margin: 0 auto 10px auto;
       padding: 0;
       list-style: none;
-      width: 96%;
+      width: 100%;
       text-align: left;
     }
     .result-desc-list li {
@@ -285,7 +288,7 @@
       margin-right: 8px;
     }
     .result-actions {
-      width: 92%;
+      width: 100%;
       max-width: 370px;
       margin: 38px auto 0 auto;
       display: flex;
@@ -327,6 +330,9 @@
       .result-username { font-size: 1.1rem; }
       .result-mainbox { padding: 24px 6px 14px 6px; }
       .result-mainimg { width: 80px; height: 80px; }
+      .result-card { padding-left: 6px; padding-right: 6px; }
+      .result-desc-list { width: 100%; }
+      .result-actions { width: 100%; }
     }
   </style>
 </head>
