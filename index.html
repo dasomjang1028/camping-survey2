@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>나의 캠핑 스타일 테스트</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <style>
+    body {
+      font-family: 'Pretendard', Arial, sans-serif;
+      background: #f8fafc;
+      margin: 0; padding: 0;
+    }
+    .container {
+      max-width: 430px;
+      margin: 60px auto;
+      padding: 40px 28px;
+      background: #fff;
+      border-radius: 22px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+    }
+    .hidden { display: none; }
+    h1 {
+      font-weight: 500;
+      font-size: 2rem;
+      margin-bottom: 24px;
+      letter-spacing: -1px;
+    }
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 40px;
+      color: #333;
+    }
+    button {
+      padding: 16px 0;
+      width: 100%;
+      font-size: 1.15rem;
+      font-family: 'Pretendard', Arial, sans-serif;
+      background: #0d6efd;
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      box-shadow: 0 2px 8px rgba(13,110,253,0.07);
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.2s;
+      margin-bottom: 16px;
+    }
+    button:last-child {
+      background: #ffb400;
+      color: #333;
+    }
+    button:hover {
+      background: #0056b3;
+      opacity: .96;
+    }
+    .option {
+      display: block;
+      width: 100%;
+      margin-bottom: 18px;
+      padding: 15px 0;
+      font-size: 1rem;
+      font-family: 'Pretendard', Arial, sans-serif;
+      background: #e9ecef;
+      color: #222;
+      border: none;
+      border-radius: 13px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.18s;
+    }
+    .option:hover {
+      background: #d0d9e6;
+    }
+    .center { text-align: center; }
+    img {
+      max-width: 180px;
+      margin-bottom: 22px;
+      border-radius: 16px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.10);
+    }
+    h2 {
+      font-weight: 500;
+      font-size: 1.33rem;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 시작 화면 -->
+    <div id="start-screen" class="center">
+      <h1>나의 캠핑 스타일 테스트</h1>
+      <p>내 캠핑 취향을 간단하게 알아보고<br>나와 어울리는 캠퍼 타입을 확인하세요!</p>
+      <button onclick="startTest()">시작하기</button>
+    </div>
+    <!-- 질문 화면 -->
+    <div id="question-screen" class="hidden">
+      <div id="question"></div>
+      <div id="options"></div>
+    </div>
+    <!-- 결과 화면 -->
+    <div id="result-screen" class="hidden center">
+      <img id="resultImg" />
+      <h2 id="resultTitle"></h2>
+      <p id="resultDesc"></p>
+      <button id="shareBtn">공유하기</button>
+      <button onclick="getCoupon()">쿠폰 받기</button>
+    </div>
+  </div>
+  <script>
+    // 질문과 보기 데이터
+    const questions = [
+      {
+        text: "캠핑에서 가장 중요한 것은?",
+        options: [
+          { text: "분위기와 감성", type: "emotional" },
+          { text: "편리함과 안전", type: "practical" },
+          { text: "액티비티와 재미", type: "active" }
+        ]
+      },
+      {
+        text: "선호하는 캠핑장 스타일은?",
+        options: [
+          { text: "자연 속 조용한 숲", type: "emotional" },
+          { text: "시설 좋은 오토캠핑장", type: "practical" },
+          { text: "레저 즐기는 호숫가", type: "active" }
+        ]
+      },
+      {
+        text: "캠핑 음식 준비는?",
+        options: [
+          { text: "감성 가득 로컬 푸드", type: "emotional" },
+          { text: "간편한 즉석식", type: "practical" },
+          { text: "직접 구워먹는 바비큐", type: "active" }
+        ]
+      },
+      {
+        text: "캠핑 동반자라면?",
+        options: [
+          { text: "친한 친구 혹은 연인", type: "emotional" },
+          { text: "가족 혹은 반려동물", type: "practical" },
+          { text: "동호회, 여러 사람", type: "active" }
+        ]
+      }
+    ];
+
+    // 결과 정보
+    const resultInfo = {
+      emotional: {
+        img: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=cover&w=400&q=80',
+        title: '감성 캠퍼',
+        desc: '분위기를 중시하는 감성 캠퍼! 자연과 조화를 즐깁니다.'
+      },
+      practical: {
+        img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=cover&w=400&q=80',
+        title: '실속 캠퍼',
+        desc: '편리함과 안전을 우선하는 실속 캠퍼! 준비가 철저해요.'
+      },
+      active: {
+        img: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=cover&w=400&q=80',
+        title: '액티브 캠퍼',
+        desc: '즐거움과 액티비티를 사랑하는 액티브 캠퍼! 에너지가 넘칩니다.'
+      }
+    };
+
+    let current = 0;
+    let scores = { emotional: 0, practical: 0, active: 0 };
+
+    function startTest() {
+      document.getElementById('start-screen').classList.add('hidden');
+      document.getElementById('question-screen').classList.remove('hidden');
+      current = 0;
+      scores = { emotional: 0, practical: 0, active: 0 };
+      showQuestion();
+    }
+
+    function showQuestion() {
+      document.getElementById('question').innerText = questions[current].text;
+      const optionsDiv = document.getElementById('options');
+      optionsDiv.innerHTML = '';
+      questions[current].options.forEach((opt) => {
+        const btn = document.createElement('button');
+        btn.className = 'option';
+        btn.innerText = opt.text;
+        btn.onclick = () => selectOption(opt.type);
+        optionsDiv.appendChild(btn);
+      });
+    }
+
+    function selectOption(type) {
+      scores[type]++;
+      current++;
+      if (current < questions.length) {
+        showQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      document.getElementById('question-screen').classList.add('hidden');
+      document.getElementById('result-screen').classList.remove('hidden');
+      const resultType = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+      const info = resultInfo[resultType];
+      document.getElementById('resultImg').src = info.img;
+      document.getElementById('resultTitle').innerText = info.title;
+      document.getElementById('resultDesc').innerText = info.desc;
+
+      // 공유 버튼 이벤트
+      document.getElementById('shareBtn').onclick = function() {
+        if (navigator.share) {
+          navigator.share({
+            title: '나의 캠핑 스타일 결과',
+            text: `나는 ${info.title}! 당신도 테스트 해보세요.`,
+            url: window.location.href
+          });
+        } else {
+          alert('공유 기능이 지원되지 않는 브라우저입니다.');
+        }
+      };
+    }
+
+    function getCoupon() {
+      // 앱 다운로드 또는 쿠폰 팝업
+      window.location.href = 'https://your-app-download-or-coupon.com';
+      // 또는 바로 팝업: alert('쿠폰 코드: CAMP123');
+    }
+  </script>
+</body>
+</html>
