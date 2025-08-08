@@ -1,434 +1,196 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <title>캠핑 스타일 테스트</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
-  <style>
-    :root {
-      --main-bg: #f6f9ff;
-      --card-bg: #fff;
-      --main-text: #222;
-      --border-radius: 32px;
-      --option-hover: #f7f3ff;
-      --option-selected: #ffe7b2;
-      --main-orange: #ffb400;
-      --main-orange-dark: #ff9800;
-      --shadow-card: 0 6px 32px rgba(0,0,0,0.07);
-      --shadow-result: 0 8px 40px rgba(255,180,0,0.11);
-    }
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      background: var(--main-bg);
-    }
-    body {
-      font-family: 'Pretendard', Arial, sans-serif;
-      min-height: 100vh;
-      box-sizing: border-box;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-    }
-    .container {
-      width: 100vw;
-      max-width: 430px;
-      min-height: 100vh;
-      background: var(--main-bg);
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      position: relative;
-      padding-bottom: 40px;
-    }
-    .hidden { display: none; }
-    /* 질문 카드 */
-    .card {
-      width: 92%;
-      margin: 0 auto;
-      background: var(--card-bg);
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow-card);
-      margin-top: 36px;
-      padding: 38px 20px 38px 20px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .question-title {
-      font-size: 1.19rem;
-      font-weight: 700;
-      color: var(--main-text);
-      text-align: center;
-      margin-bottom: 38px;
-      line-height: 1.5;
-      letter-spacing: -1px;
-    }
-    .option-list {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      margin-bottom: 0;
-      align-items: stretch;
-      justify-content: center;
-    }
-    .option-btn {
-      width: 100%;
-      background: var(--card-bg);
-      font-size: 1.11rem;
-      color: var(--main-text);
-      border: none;
-      border-radius: 16px;
-      box-shadow: var(--shadow-card);
-      padding: 22px 16px;
-      margin: 0 auto;
-      cursor: pointer;
-      font-family: inherit;
-      font-weight: 500;
-      text-align: center;
-      transition: background 0.18s, box-shadow 0.18s;
-      outline: none;
-      position: relative;
-      border: 2px solid transparent;
-    }
-    .option-btn:active,
-    .option-btn:hover {
-      background: var(--option-hover);
-      box-shadow: 0 2px 12px rgba(255,180,0,0.10);
-    }
-    .option-btn.selected {
-      background: var(--option-selected);
-      border: 2px solid var(--main-orange);
-      box-shadow: 0 4px 24px rgba(255,180,0,0.10);
-    }
-    /* 결과 화면 */
-    .result-card {
-      width: 96vw;
-      max-width: 430px;
-      margin: 0 auto;
-      background: linear-gradient(145deg, #fff8e1 60%, #ffe7b2 100%);
-      border-radius: 40px;
-      box-shadow: var(--shadow-result);
-      margin-top: 36px;
-      padding: 0 0 38px 0;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      min-height: 620px;
-    }
-    .result-top {
-      width: 100%;
-      padding: 38px 0 0 0;
-      text-align: center;
-    }
-    .result-year {
-      font-size: 1.05rem;
-      color: #a0936a;
-      font-weight: 500;
-      margin-bottom: 22px;
-    }
-    .result-title {
-      font-size: 2.1rem;
-      font-weight: 800;
-      color: #222;
-      margin-bottom: 12px;
-      line-height: 1.2;
-      word-break: keep-all;
-    }
-    .result-type {
-      font-size: 1.45rem;
-      font-weight: 800;
-      color: var(--main-orange-dark);
-      margin-bottom: 30px;
-      line-height: 1.2;
-      word-break: keep-all;
-    }
-    .result-img {
-      width: 190px;
-      height: 190px;
-      object-fit: contain;
-      margin-bottom: 22px;
-      margin-top: 4px;
-      border-radius: 28px;
-      box-shadow: 0 4px 20px rgba(255,180,0,0.13);
-      background: #fffbe9;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .result-desc-wrap {
-      width: 92%;
-      background: rgba(255,255,255,0.92);
-      border-radius: 25px;
-      padding: 18px 12px;
-      margin: 0 auto;
-      box-shadow: 0 2px 10px rgba(255,180,0,0.07);
-      margin-bottom: 18px;
-      margin-top: 6px;
-      font-size: 1.08rem;
-      color: #555;
-      font-weight: 500;
-      line-height: 1.7;
-    }
-    .result-desc-wrap > div {
-      display: flex;
-      align-items: center;
-      margin-bottom: 8px;
-      font-size: 1.08rem;
-      color: #555;
-      line-height: 1.5;
-    }
-    .result-desc-wrap > div:last-child { margin-bottom: 0; }
-    .result-desc-emoji {
-      font-size: 1.32rem;
-      margin-right: 8px;
-    }
-    .result-share-btn {
-      width: 80vw;
-      max-width: 360px;
-      background: var(--main-orange);
-      color: #fff;
-      border: none;
-      border-radius: 14px;
-      padding: 20px 0;
-      font-size: 1.15rem;
-      font-family: inherit;
-      font-weight: 700;
-      text-align: center;
-      box-shadow: 0 1px 8px rgba(255,180,0,0.13);
-      margin: 22px auto 0 auto;
-      cursor: pointer;
-      transition: background 0.18s, opacity 0.18s;
-      display: block;
-      letter-spacing: -1px;
-      opacity: 0.93;
-    }
-    .result-share-btn:hover, .result-share-btn:active {
-      background: var(--main-orange-dark);
-      opacity: 1;
-    }
-    .result-coupon-btn {
-      width: 80vw;
-      max-width: 360px;
-      background: #fff;
-      color: var(--main-orange-dark);
-      border: none;
-      border-radius: 14px;
-      padding: 20px 0;
-      font-size: 1.15rem;
-      font-family: inherit;
-      font-weight: 700;
-      text-align: center;
-      box-shadow: 0 1px 8px rgba(255,180,0,0.12);
-      margin: 10px auto 0 auto;
-      cursor: pointer;
-      transition: background 0.18s, opacity 0.18s;
-      display: block;
-      letter-spacing: -1px;
-      opacity: 0.93;
-    }
-    .result-coupon-btn:hover, .result-coupon-btn:active {
-      background: #ffe7b2;
-      opacity: 1;
-    }
-    @media (max-width: 430px) {
-      .container { padding: 0 0vw; }
-      .card { padding: 28px 6px; }
-      .option-btn { font-size: 1.01rem; padding: 16px 8px; }
-      .result-card { padding: 0 0 18px 0; min-height: 540px;}
-      .result-desc-wrap { font-size: 0.97rem; }
-      .result-title { font-size: 1.5rem; }
-      .result-type { font-size: 1.10rem; }
-      .result-img { width: 120px; height: 120px;}
-      .result-year { font-size: 0.95rem; }
-      .result-share-btn, .result-coupon-btn { font-size: 1rem; padding: 14px 0;}
-    }
-    @media (max-width: 350px) {
-      .container { padding: 0 0vw; }
-      .option-btn { font-size: 0.89rem; padding: 12px 4px; }
-      .result-card { min-height: 420px;}
-      .result-desc-wrap { font-size: 0.86rem; }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <!-- 질문 카드 -->
-    <div class="card" id="questionCard">
-      <div class="question-title" id="question"></div>
-      <div class="option-list" id="options"></div>
-    </div>
-    <!-- 결과 카드 -->
-    <div class="result-card hidden" id="resultCard">
-      <div class="result-top">
-        <div class="result-year" id="resultYear">2024년의 당신은</div>
-        <div class="result-title" id="resultTitle">매일 발전하는<br>똑똑이</div>
-        <div class="result-type" id="resultType">감성 캠퍼</div>
-      </div>
-      <img class="result-img" id="resultImg" src="https://cdn.pixabay.com/photo/2017/01/31/13/14/chick-2024580_1280.png" alt="결과 이미지">
-      <div class="result-desc-wrap" id="resultDescWrap">
-        <div><span class="result-desc-emoji">🏅</span><span>분위기를 중시하는 감성 캠퍼! 자연과 조화를 즐깁니다.</span></div>
-        <div><span class="result-desc-emoji">🔍</span><span>편리함과 안전을 우선하는 실속 캠퍼! 준비가 철저해요.</span></div>
-        <div><span class="result-desc-emoji">🎓</span><span>즐거움과 액티비티를 사랑하는 액티브 캠퍼! 에너지가 넘칩니다.</span></div>
-      </div>
-      <button class="result-share-btn" id="shareBtn">공유하기</button>
-      <button class="result-coupon-btn" id="couponBtn">쿠폰 받기</button>
-    </div>
-  </div>
-  <script>
-    // 질문 데이터
-    const questions = [
-      {
-        text: "캠핑에서 가장 중요한 것은?",
-        options: [
-          { text: "분위기와 감성", type: "emotional" },
-          { text: "편리함과 안전", type: "practical" },
-          { text: "액티비티와 재미", type: "active" }
-        ]
-      },
-      {
-        text: "선호하는 캠핑장 스타일은?",
-        options: [
-          { text: "자연 속 조용한 숲", type: "emotional" },
-          { text: "시설 좋은 오토캠핑장", type: "practical" },
-          { text: "레저 즐기는 호숫가", type: "active" }
-        ]
-      },
-      {
-        text: "캠핑 음식 준비는?",
-        options: [
-          { text: "감성 가득 로컬 푸드", type: "emotional" },
-          { text: "간편한 즉석식", type: "practical" },
-          { text: "직접 구워먹는 바비큐", type: "active" }
-        ]
-      },
-      {
-        text: "캠핑 동반자라면?",
-        options: [
-          { text: "친한 친구 혹은 연인", type: "emotional" },
-          { text: "가족 혹은 반려동물", type: "practical" },
-          { text: "동호회, 여러 사람", type: "active" }
-        ]
-      }
-    ];
-
-    // 결과 정보
-    const resultInfo = {
-      emotional: {
-        type: '감성 캠퍼',
-        title: '분위기를 중시하는<br>감성 캠퍼',
-        img: 'https://cdn.pixabay.com/photo/2017/01/31/13/14/chick-2024580_1280.png',
-        desc: [
-          '분위기를 중시하는 감성 캠퍼! 자연과 조화를 즐깁니다.',
-          '편리함과 안전을 우선하는 실속 캠퍼! 준비가 철저해요.',
-          '즐거움과 액티비티를 사랑하는 액티브 캠퍼! 에너지가 넘칩니다.'
-        ],
-        emojis: ['🏅','🔍','🎓']
-      },
-      practical: {
-        type: '실속 캠퍼',
-        title: '실속을 중시하는<br>실속 캠퍼',
-        img: 'https://cdn.pixabay.com/photo/2017/01/31/13/14/chick-2024580_1280.png',
-        desc: [
-          '준비가 철저한 실속 캠퍼! 항상 안전을 먼저 생각합니다.',
-          '분위기도 신경쓰지만 실용성을 우선해요.',
-          '액티비티보단 휴식이 중요합니다.'
-        ],
-        emojis: ['🏅','🔍','🎓']
-      },
-      active: {
-        type: '액티브 캠퍼',
-        title: '에너지가 넘치는<br>액티브 캠퍼',
-        img: 'https://cdn.pixabay.com/photo/2017/01/31/13/14/chick-2024580_1280.png',
-        desc: [
-          '즐거움과 액티비티를 사랑하는 액티브 캠퍼! 에너지가 넘칩니다.',
-          '분위기도 중요하지만 활동이 더 좋아요.',
-          '새로운 경험을 항상 추구합니다.'
-        ],
-        emojis: ['🏅','🔍','🎓']
-      }
-    };
-
-    let current = 0;
-    let scores = { emotional: 0, practical: 0, active: 0 };
-
-    function renderQuestion() {
-      document.getElementById('question').innerText = questions[current].text;
-      const optionsDiv = document.getElementById('options');
-      optionsDiv.innerHTML = '';
-      questions[current].options.forEach((opt, idx) => {
-        const btn = document.createElement('button');
-        btn.className = 'option-btn';
-        btn.innerText = opt.text;
-        btn.onclick = () => selectOption(opt.type, btn);
-        optionsDiv.appendChild(btn);
-      });
-    }
-
-    function selectOption(type, btn) {
-      scores[type]++;
-      // 바로 다음 질문으로 넘어감
-      current++;
-      if (current < questions.length) {
-        renderQuestion();
-      } else {
-        showResult();
-      }
-    }
-
-    function showResult() {
-      document.getElementById('questionCard').classList.add('hidden');
-      document.getElementById('resultCard').classList.remove('hidden');
-
-      // 자동 연도 표기
-      document.getElementById('resultYear').innerText = `${new Date().getFullYear()}년의 당신은`;
-
-      // 결과 타입 결정
-      const resultType = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
-      const info = resultInfo[resultType];
-
-      document.getElementById('resultTitle').innerHTML = info.title;
-      document.getElementById('resultType').innerText = info.type;
-      document.getElementById('resultImg').src = info.img;
-
-      // 결과 설명
-      const descWrap = document.getElementById('resultDescWrap');
-      descWrap.innerHTML = '';
-      info.desc.forEach((d, i) => {
-        const row = document.createElement('div');
-        row.innerHTML = `<span class="result-desc-emoji">${info.emojis[i]}</span><span>${d}</span>`;
-        descWrap.appendChild(row);
-      });
-
-      // 공유 버튼
-      document.getElementById('shareBtn').onclick = function() {
-        if (navigator.share) {
-          navigator.share({
-            title: '나의 캠핑 스타일 결과',
-            text: `나는 ${info.type}! 당신도 캠핑 스타일 테스트 해보세요.`,
-            url: window.location.href
-          });
-        } else {
-          alert('공유 기능이 지원되지 않는 브라우저입니다.');
-        }
-      };
-
-      // 쿠폰 버튼
-      document.getElementById('couponBtn').onclick = function() {
-        window.location.href = 'https://snowlinemall.com/product/list.html?cate_no=424';
-      };
-    }
-
-    // 최초 렌더
-    renderQuestion();
-  </script>
-</body>
-</html>
+body {
+  font-family: 'Pretendard', Arial, sans-serif;
+  background: #f6f9ff;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  max-width: 430px;
+  margin: 60px auto 0 auto;
+  background: #fff;
+  border-radius: 32px;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.07);
+  padding: 38px 20px 38px 20px;
+}
+h1, h2 {
+  text-align: center;
+  font-weight: 800;
+  margin-bottom: 32px;
+  color: #222;
+}
+.survey-card {
+  background: #fff;
+  border-radius: 28px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  padding: 24px 16px 32px 16px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.survey-question {
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: #222;
+  text-align: center;
+  margin-bottom: 34px;
+  margin-top: 14px;
+  line-height: 1.5;
+  letter-spacing: -1px;
+}
+.survey-options {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 0;
+  align-items: stretch;
+  justify-content: center;
+}
+.survey-option-btn {
+  width: 100%;
+  background: #fff;
+  font-size: 1.09rem;
+  color: #222;
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  padding: 22px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  text-align: center;
+  transition: background 0.18s, box-shadow 0.18s;
+  outline: none;
+  border: 2px solid transparent;
+}
+.survey-option-btn:active,
+.survey-option-btn:hover {
+  background: #ffe7b2;
+  box-shadow: 0 2px 12px rgba(255,180,0,0.10);
+  border: 2px solid #ffb400;
+}
+.result-card {
+  width: 96vw;
+  max-width: 430px;
+  margin: 0 auto;
+  background: linear-gradient(145deg, #fff8e1 60%, #ffe7b2 100%);
+  border-radius: 40px;
+  box-shadow: 0 8px 40px rgba(255,180,0,0.11);
+  margin-top: 36px;
+  padding: 0 0 38px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 540px;
+}
+.result-top {
+  width: 100%;
+  padding: 38px 0 0 0;
+  text-align: center;
+}
+.result-year {
+  font-size: 1.05rem;
+  color: #a0936a;
+  font-weight: 500;
+  margin-bottom: 22px;
+}
+.result-title {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #222;
+  margin-bottom: 12px;
+  line-height: 1.2;
+  word-break: keep-all;
+}
+.result-type {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #ff9800;
+  margin-bottom: 30px;
+  line-height: 1.2;
+  word-break: keep-all;
+}
+.result-desc-wrap {
+  width: 92%;
+  background: rgba(255,255,255,0.92);
+  border-radius: 25px;
+  padding: 18px 12px;
+  margin: 0 auto 18px auto;
+  font-size: 1.08rem;
+  color: #555;
+  font-weight: 500;
+  line-height: 1.7;
+  box-shadow: 0 2px 10px rgba(255,180,0,0.07);
+  margin-top: 10px;
+}
+.result-desc-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 1.08rem;
+  color: #555;
+  line-height: 1.5;
+}
+.result-desc-row:last-child { margin-bottom: 0; }
+.result-desc-emoji {
+  font-size: 1.32rem;
+  margin-right: 8px;
+}
+.result-img {
+  width: 190px;
+  height: 190px;
+  object-fit: contain;
+  margin-bottom: 22px;
+  margin-top: 14px;
+  border-radius: 28px;
+  box-shadow: 0 4px 20px rgba(255,180,0,0.13);
+  background: #fffbe9;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.result-share-btn, .result-coupon-btn {
+  width: 80vw;
+  max-width: 360px;
+  border: none;
+  border-radius: 14px;
+  padding: 20px 0;
+  font-size: 1.15rem;
+  font-family: inherit;
+  font-weight: 700;
+  text-align: center;
+  box-shadow: 0 1px 8px rgba(255,180,0,0.13);
+  margin: 12px auto 0 auto;
+  cursor: pointer;
+  transition: background 0.18s, opacity 0.18s;
+  display: block;
+  letter-spacing: -1px;
+  opacity: 0.93;
+}
+.result-share-btn {
+  background: #ffb400;
+  color: #fff;
+}
+.result-share-btn:hover, .result-share-btn:active {
+  background: #ff9800;
+  opacity: 1;
+}
+.result-coupon-btn {
+  background: #fff;
+  color: #ff9800;
+  box-shadow: 0 1px 8px rgba(255,180,0,0.12);
+}
+.result-coupon-btn:hover, .result-coupon-btn:active {
+  background: #ffe7b2;
+  opacity: 1;
+}
+@media (max-width: 500px) {
+  .container, .result-card {
+    padding: 18px 2vw 18px 2vw;
+  }
+  .result-title { font-size: 1.5rem; }
+  .result-type { font-size: 1.10rem; }
+  .result-img { width: 120px; height: 120px;}
+  .result-desc-wrap { font-size: 0.97rem; }
+  .result-share-btn, .result-coupon-btn { font-size: 1rem; padding: 14px 0;}
+}
