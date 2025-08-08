@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <title>나의 캠핑 스타일은?</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- hooncaramel 웹폰트 CDN (WebFontWorld) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/webfontworld/hoon/hooncaramel.css">
+  <!-- Pretendard 웹폰트 CDN (WebFontWorld) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/webfontworld/pretendard/pretendard.css">
   <style>
     :root {
       --main-orange: #ff9800;
@@ -14,23 +18,6 @@
       --gray-dark: #888;
       --radius-lg: 24px;
       --radius-md: 16px;
-      --shadow-card: 0 2px 16px rgba(255, 152, 0, 0.08);
-      --progress-bg: #ffe0b2;
-      --progress-active: #ff9800;
-      --progress-inactive: #ffe0b2;
-      --option-selected: #fff3e0;
-      --option-hover: #fff8e1;
-      --btn-orange: #ff9800;
-      --btn-orange-dark: #ff7d00;
-      --btn-gray: #f4f4f6;
-      --btn-gray-text: #888;
-      --btn-white: #fff;
-      --btn-coupon-bg: #ff9800;
-      --btn-coupon-text: #fff;
-      --btn-share-bg: #fff4e0;
-      --btn-share-text: #ff9800;
-      --btn-save-bg: #f4f4f6;
-      --btn-save-text: #888;
     }
     body {
       background: var(--main-bg);
@@ -42,15 +29,12 @@
     .container {
       max-width: 430px;
       margin: 0 auto;
-      padding: 0;
       min-height: 100vh;
       background: var(--main-bg);
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
     }
-    /* 시작하기 페이지 스타일 */
     .start-wrap {
       width: 100vw;
       max-width: 430px;
@@ -72,8 +56,10 @@
       display: block;
     }
     .start-title {
+      font-family: hooncaramel, sans-serif;
+      font-style: normal;
+      font-weight: 400;
       font-size: 2.0rem;
-      font-weight: 800;
       color: #222;
       text-align: center;
       margin-bottom: 22px;
@@ -81,6 +67,7 @@
       line-height: 1.3;
     }
     .start-desc {
+      font-family: 'Pretendard', Arial, sans-serif;
       font-size: 1.12rem;
       color: #666;
       text-align: center;
@@ -90,6 +77,7 @@
       letter-spacing: -0.5px;
     }
     .start-btn {
+      font-family: 'Pretendard', Arial, sans-serif;
       width: 80vw;
       max-width: 380px;
       background: var(--main-orange);
@@ -117,27 +105,24 @@
       .start-desc { font-size: 1rem; margin-bottom: 30px;}
       .start-btn { font-size: 1.05rem; padding: 16px 0;}
     }
-    /* 이하 설문/결과 스타일 (이전 답변과 동일, 생략 가능) */
     .progress-bar-wrap {
       width: 90%;
       margin: 28px auto 12px auto;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0;
     }
     .progress-step {
       width: 46px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      z-index: 2;
     }
     .progress-circle {
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      background: var(--progress-inactive);
+      background: #ffe0b2;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -148,11 +133,12 @@
       border: 2px solid transparent;
     }
     .progress-active .progress-circle {
-      background: var(--progress-active);
+      background: var(--main-orange);
       color: #fff;
       border: 2px solid var(--main-orange-dark);
     }
     .progress-label {
+      font-family: 'Pretendard', Arial, sans-serif;
       font-size: 0.77rem;
       color: var(--gray-dark);
       margin-top: 4px;
@@ -162,12 +148,10 @@
     .progress-bar {
       flex: 1;
       height: 4px;
-      background: var(--progress-bg);
-      margin: 0 0px;
+      background: #ffe0b2;
       border-radius: 2px;
       position: relative;
       top: 14px;
-      z-index: 1;
     }
     .progress-bar-fill {
       background: var(--main-orange-dark);
@@ -176,11 +160,12 @@
       transition: width 0.3s;
     }
     .card {
+      font-family: 'Pretendard', Arial, sans-serif;
       width: 90vw;
       max-width: 430px;
       background: var(--card-bg);
       border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-card);
+      box-shadow: 0 2px 16px rgba(255, 152, 0, 0.08);
       padding: 32px 24px 32px 24px;
       margin: 0 auto 26px auto;
       display: flex;
@@ -212,6 +197,7 @@
       margin-bottom: 0;
     }
     .option-btn {
+      font-family: 'Pretendard', Arial, sans-serif;
       background: var(--gray-light);
       color: #222;
       font-size: 1.07rem;
@@ -229,26 +215,16 @@
       outline: none;
     }
     .option-btn:hover {
-      background: var(--option-hover);
+      background: #fff8e1;
     }
     .option-btn.selected {
-      background: var(--option-selected);
+      background: #fff3e0;
       color: var(--main-orange-dark);
       font-weight: 700;
       border: 2px solid var(--main-orange-dark);
     }
-    .option-btn .option-mark {
-      font-size: 1.12rem;
-      margin-right: 12px;
-      color: var(--main-orange-dark);
-      font-weight: 800;
-      display: none;
-    }
-    .option-btn.selected .option-mark {
-      display: block;
-    }
-    /* 결과 카드 좌우 마진 더 넓게 */
     .result-card {
+      font-family: 'Pretendard', Arial, sans-serif;
       width: 98vw;
       max-width: 430px;
       margin: 55px auto 0 auto;
@@ -262,16 +238,19 @@
       box-sizing: border-box;
     }
     .result-title {
+      font-family: hooncaramel, sans-serif;
+      font-style: normal;
+      font-weight: 400;
       width: 100%;
       text-align: center;
       font-size: 1.30rem;
-      font-weight: 700;
       color: var(--main-orange-dark);
       margin-top: 36px;
       margin-bottom: 16px;
       letter-spacing: -0.5px;
     }
     .result-subtitle {
+      font-family: 'Pretendard', Arial, sans-serif;
       width: 100%;
       text-align: center;
       font-size: 1.07rem;
@@ -281,6 +260,7 @@
       letter-spacing: -0.5px;
     }
     .result-coupon-msg {
+      font-family: 'Pretendard', Arial, sans-serif;
       width: 100%;
       text-align: center;
       font-size: 1rem;
@@ -317,6 +297,7 @@
       margin-right: auto;
     }
     .result-detail-row {
+      font-family: 'Pretendard', Arial, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -335,6 +316,7 @@
       color: #222;
     }
     .result-desc-list {
+      font-family: 'Pretendard', Arial, sans-serif;
       margin: 0 auto 10px auto;
       padding: 0;
       list-style: none;
@@ -363,27 +345,10 @@
       align-items: center;
       justify-content: center;
     }
-    /* 버튼 명도 다르게, 쿠폰이 가장 강조 */
-    .result-action-btn {
-      width: 100%;
-      border: none;
-      border-radius: 14px;
-      padding: 18px 0;
-      font-size: 1.08rem;
-      font-family: inherit;
-      font-weight: 700;
-      text-align: center;
-      box-shadow: 0 1px 10px rgba(255,152,0,0.10);
-      cursor: pointer;
-      margin-bottom: 0;
-      margin-top: 0;
-      letter-spacing: -1px;
-      transition: background 0.16s, color 0.16s;
-      display: block;
-    }
     .result-action-btn.coupon {
-      background: var(--btn-coupon-bg);
-      color: var(--btn-coupon-text);
+      font-family: 'Pretendard', Arial, sans-serif;
+      background: #ff9800;
+      color: #fff;
       font-size: 1.14rem;
       font-weight: 800;
       box-shadow: 0 2px 12px rgba(255,152,0,0.23);
@@ -395,8 +360,9 @@
       border: 2px solid var(--main-orange-dark);
     }
     .result-action-btn.share {
-      background: var(--btn-share-bg);
-      color: var(--btn-share-text);
+      font-family: 'Pretendard', Arial, sans-serif;
+      background: #fff4e0;
+      color: #ff9800;
       font-weight: 700;
       border: 2px solid #fff;
     }
@@ -406,13 +372,14 @@
       border: 2px solid var(--main-orange-dark);
     }
     .result-action-btn.save {
-      background: var(--btn-save-bg);
-      color: var(--btn-save-text);
+      font-family: 'Pretendard', Arial, sans-serif;
+      background: #f4f4f6;
+      color: #888;
       font-weight: 700;
       border: 2px solid #eee;
     }
     .result-action-btn.save:hover {
-      background: var(--option-selected);
+      background: #fff3e0;
       color: var(--main-orange-dark);
       border: 2px solid var(--main-orange-dark);
     }
@@ -428,18 +395,13 @@
       .result-mainbox { padding: 24px 6px 14px 6px; }
       .result-mainimg { width: 80px; height: 80px; }
       .result-card { padding-left: 6vw; padding-right: 6vw; }
-      .result-desc-list { width: 100%; }
-      .result-actions { width: 100%; }
-      .result-coupon-msg { font-size: 0.93rem; padding: 8px 0;}
     }
   </style>
 </head>
 <body>
   <div class="container" id="app-container"></div>
   <script>
-    // 이미지3 예시 이미지 (실제 경로로 교체 가능)
     const START_IMAGE_URL = "https://cdn.jsdelivr.net/gh/daangn/web-asset/example/camp-start.png";
-    // 질문 및 옵션 예시
     const QUESTIONS = [
       {
         title: "캠핑 취향 맞히기",
@@ -457,7 +419,8 @@
         options: ["감성 가득 로컬 푸드", "간편한 즉석식", "직접 구워먹는 바비큐"]
       }
     ];
-    // 결과 예시
+    // 실속 캠퍼 이미지 변경!
+    const PRACTICAL_IMG = "https://images.unsplash.com/photo-1715766131072-6e8f1e4e1c9c?auto=format&fit=crop&w=768&q=80";
     const RESULT_DATA = {
       emotional: {
         img: 'https://cdn.pixabay.com/photo/2017/01/31/13/14/chick-2024580_1280.png',
@@ -471,7 +434,7 @@
         region: '숲속 명소'
       },
       practical: {
-        img: 'https://cdn.pixabay.com/photo/2014/04/03/10/32/tent-312441_1280.png',
+        img: PRACTICAL_IMG, // 이미지2
         title: '실속 캠퍼',
         desc: [
           '편리함과 안전을 우선하는 실속 캠퍼! 준비가 철저해요.',
@@ -495,7 +458,6 @@
     };
     let currentStep = 0;
     let answers = [];
-    // 시작 페이지 랜더
     function renderStartPage() {
       document.getElementById('app-container').innerHTML = `
         <div class="start-wrap">
@@ -511,7 +473,7 @@
     }
     function getProgressIcon(active) {
       return active
-        ? `<span class="progress-circle" style="background: var(--progress-active); color: #fff; border: 2px solid var(--main-orange-dark);">&#127793;</span>`
+        ? `<span class="progress-circle" style="background: var(--main-orange); color: #fff; border: 2px solid var(--main-orange-dark);">&#127793;</span>`
         : `<span class="progress-circle">&#127793;</span>`;
     }
     function renderSurvey() {
@@ -553,7 +515,6 @@
       });
     }
     function showResult() {
-      // 결과 타입 결정 (예시: 가장 많이 고른 type)
       const scoreMap = { emotional: 0, practical: 0, active: 0 };
       for (let i = 0; i < QUESTIONS.length; i++) {
         const opt = QUESTIONS[i].options.indexOf(answers[i]);
@@ -563,9 +524,23 @@
       }
       const type = Object.keys(scoreMap).reduce((a,b)=>scoreMap[a]>scoreMap[b]?a:b);
       const data = RESULT_DATA[type];
+
+      // 설문 결과 Google Apps Script로 저장
+      fetch('https://script.google.com/macros/s/AKfycbzyuELqR4QKT2DST-rtb7KM8NhuAN12DC94AqV5f8__R8NOYLVJGDCWpELWY8gbht5IMAURL/exec', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          result_type: data.title,
+          mainjob: data.mainjob,
+          region: data.region,
+          answers: answers,
+          date: new Date().toISOString()
+        })
+      });
+
       document.getElementById('app-container').innerHTML = `
         <div class="result-card">
-          <div class="result-title">축하드립니다! 당신은 <span style="color:var(--main-orange-dark);font-weight:800;">${data.title}</span>입니다</div>
+          <div class="result-title">축하드립니다! 당신은 <span style="color:var(--main-orange-dark);">${data.title}</span>입니다</div>
           <div class="result-subtitle">어울리는 쿠폰을 지급해드렸어요</div>
           <div class="result-coupon-msg">쿠폰은 아래 버튼에서 바로 확인하세요</div>
           <div class="result-mainbox">
@@ -607,7 +582,6 @@
         alert('이미지 저장은 모바일에서 화면 캡처로 가능합니다.');
       };
     }
-    // 최초 시작화면
     renderStartPage();
   </script>
 </body>
