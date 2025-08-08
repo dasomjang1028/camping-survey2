@@ -1,196 +1,309 @@
-body {
-  font-family: 'Pretendard', Arial, sans-serif;
-  background: #f6f9ff;
-  margin: 0;
-  padding: 0;
-}
-.container {
-  max-width: 430px;
-  margin: 60px auto 0 auto;
-  background: #fff;
-  border-radius: 32px;
-  box-shadow: 0 6px 32px rgba(0,0,0,0.07);
-  padding: 38px 20px 38px 20px;
-}
-h1, h2 {
-  text-align: center;
-  font-weight: 800;
-  margin-bottom: 32px;
-  color: #222;
-}
-.survey-card {
-  background: #fff;
-  border-radius: 28px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
-  padding: 24px 16px 32px 16px;
-  margin-bottom: 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.survey-question {
-  font-size: 1.18rem;
-  font-weight: 700;
-  color: #222;
-  text-align: center;
-  margin-bottom: 34px;
-  margin-top: 14px;
-  line-height: 1.5;
-  letter-spacing: -1px;
-}
-.survey-options {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  margin-bottom: 0;
-  align-items: stretch;
-  justify-content: center;
-}
-.survey-option-btn {
-  width: 100%;
-  background: #fff;
-  font-size: 1.09rem;
-  color: #222;
-  border: none;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
-  padding: 22px 16px;
-  cursor: pointer;
-  font-weight: 600;
-  text-align: center;
-  transition: background 0.18s, box-shadow 0.18s;
-  outline: none;
-  border: 2px solid transparent;
-}
-.survey-option-btn:active,
-.survey-option-btn:hover {
-  background: #ffe7b2;
-  box-shadow: 0 2px 12px rgba(255,180,0,0.10);
-  border: 2px solid #ffb400;
-}
-.result-card {
-  width: 96vw;
-  max-width: 430px;
-  margin: 0 auto;
-  background: linear-gradient(145deg, #fff8e1 60%, #ffe7b2 100%);
-  border-radius: 40px;
-  box-shadow: 0 8px 40px rgba(255,180,0,0.11);
-  margin-top: 36px;
-  padding: 0 0 38px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 540px;
-}
-.result-top {
-  width: 100%;
-  padding: 38px 0 0 0;
-  text-align: center;
-}
-.result-year {
-  font-size: 1.05rem;
-  color: #a0936a;
-  font-weight: 500;
-  margin-bottom: 22px;
-}
-.result-title {
-  font-size: 2.1rem;
-  font-weight: 800;
-  color: #222;
-  margin-bottom: 12px;
-  line-height: 1.2;
-  word-break: keep-all;
-}
-.result-type {
-  font-size: 1.45rem;
-  font-weight: 800;
-  color: #ff9800;
-  margin-bottom: 30px;
-  line-height: 1.2;
-  word-break: keep-all;
-}
-.result-desc-wrap {
-  width: 92%;
-  background: rgba(255,255,255,0.92);
-  border-radius: 25px;
-  padding: 18px 12px;
-  margin: 0 auto 18px auto;
-  font-size: 1.08rem;
-  color: #555;
-  font-weight: 500;
-  line-height: 1.7;
-  box-shadow: 0 2px 10px rgba(255,180,0,0.07);
-  margin-top: 10px;
-}
-.result-desc-row {
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px;
-  font-size: 1.08rem;
-  color: #555;
-  line-height: 1.5;
-}
-.result-desc-row:last-child { margin-bottom: 0; }
-.result-desc-emoji {
-  font-size: 1.32rem;
-  margin-right: 8px;
-}
-.result-img {
-  width: 190px;
-  height: 190px;
-  object-fit: contain;
-  margin-bottom: 22px;
-  margin-top: 14px;
-  border-radius: 28px;
-  box-shadow: 0 4px 20px rgba(255,180,0,0.13);
-  background: #fffbe9;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-.result-share-btn, .result-coupon-btn {
-  width: 80vw;
-  max-width: 360px;
-  border: none;
-  border-radius: 14px;
-  padding: 20px 0;
-  font-size: 1.15rem;
-  font-family: inherit;
-  font-weight: 700;
-  text-align: center;
-  box-shadow: 0 1px 8px rgba(255,180,0,0.13);
-  margin: 12px auto 0 auto;
-  cursor: pointer;
-  transition: background 0.18s, opacity 0.18s;
-  display: block;
-  letter-spacing: -1px;
-  opacity: 0.93;
-}
-.result-share-btn {
-  background: #ffb400;
-  color: #fff;
-}
-.result-share-btn:hover, .result-share-btn:active {
-  background: #ff9800;
-  opacity: 1;
-}
-.result-coupon-btn {
-  background: #fff;
-  color: #ff9800;
-  box-shadow: 0 1px 8px rgba(255,180,0,0.12);
-}
-.result-coupon-btn:hover, .result-coupon-btn:active {
-  background: #ffe7b2;
-  opacity: 1;
-}
-@media (max-width: 500px) {
-  .container, .result-card {
-    padding: 18px 2vw 18px 2vw;
-  }
-  .result-title { font-size: 1.5rem; }
-  .result-type { font-size: 1.10rem; }
-  .result-img { width: 120px; height: 120px;}
-  .result-desc-wrap { font-size: 0.97rem; }
-  .result-share-btn, .result-coupon-btn { font-size: 1rem; padding: 14px 0;}
-}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>캠핑 스타일 설문 (오렌지 스타일)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --main-orange: #ff9800;
+      --main-orange-dark: #ff7d00;
+      --main-bg: #f9f6f1;
+      --card-bg: #fff;
+      --gray-light: #f4f4f6;
+      --gray-dark: #888;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --shadow-card: 0 2px 16px rgba(255, 152, 0, 0.08);
+      --progress-bg: #ffe0b2;
+      --progress-active: #ff9800;
+      --progress-inactive: #ffe0b2;
+      --option-selected: #fff3e0;
+      --option-hover: #fff8e1;
+    }
+    body {
+      background: var(--main-bg);
+      font-family: 'Pretendard', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 430px;
+      margin: 0 auto;
+      padding: 0;
+      min-height: 100vh;
+      background: var(--main-bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .progress-bar-wrap {
+      width: 90%;
+      margin: 28px auto 12px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+    }
+    .progress-step {
+      width: 46px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 2;
+    }
+    .progress-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--progress-inactive);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      color: var(--main-orange-dark);
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(255,152,0,0.07);
+      border: 2px solid transparent;
+    }
+    .progress-active .progress-circle {
+      background: var(--progress-active);
+      color: #fff;
+      border: 2px solid var(--main-orange-dark);
+    }
+    .progress-label {
+      font-size: 0.77rem;
+      color: var(--gray-dark);
+      margin-top: 4px;
+      font-weight: 500;
+      letter-spacing: -0.4px;
+    }
+    .progress-bar {
+      flex: 1;
+      height: 4px;
+      background: var(--progress-bg);
+      margin: 0 0px;
+      border-radius: 2px;
+      position: relative;
+      top: 14px;
+      z-index: 1;
+    }
+    .progress-bar-fill {
+      background: var(--main-orange-dark);
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.3s;
+    }
+    .card {
+      width: 92%;
+      max-width: 430px;
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      padding: 32px 18px 32px 18px;
+      margin: 0 auto 26px auto;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .card-title {
+      font-size: 1.16rem;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 13px;
+      text-align: left;
+      letter-spacing: -1px;
+    }
+    .question {
+      font-size: 1.09rem;
+      font-weight: 700;
+      color: var(--main-orange-dark);
+      margin-bottom: 26px;
+      text-align: left;
+      word-break: keep-all;
+      letter-spacing: -0.5px;
+    }
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 0;
+    }
+    .option-btn {
+      background: var(--gray-light);
+      color: #222;
+      font-size: 1.07rem;
+      font-weight: 500;
+      padding: 20px 14px;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(255,152,0,0.07);
+      transition: background 0.17s, color 0.17s;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      position: relative;
+      outline: none;
+    }
+    .option-btn:hover {
+      background: var(--option-hover);
+    }
+    .option-btn.selected {
+      background: var(--option-selected);
+      color: var(--main-orange-dark);
+      font-weight: 700;
+      border: 2px solid var(--main-orange-dark);
+    }
+    .option-btn .option-mark {
+      font-size: 1.12rem;
+      margin-right: 12px;
+      color: var(--main-orange-dark);
+      font-weight: 800;
+      display: none;
+    }
+    .option-btn.selected .option-mark {
+      display: block;
+    }
+    .next-btn {
+      width: 100%;
+      margin: 24px auto 0 auto;
+      background: var(--main-orange);
+      color: #fff;
+      font-size: 1.18rem;
+      border: none;
+      border-radius: 16px;
+      padding: 18px 0;
+      font-weight: 700;
+      box-shadow: 0 2px 18px rgba(255,152,0,0.10);
+      cursor: pointer;
+      transition: background 0.18s;
+      letter-spacing: -1px;
+    }
+    .next-btn:active,
+    .next-btn:hover {
+      background: var(--main-orange-dark);
+    }
+    @media (max-width: 500px) {
+      .container { padding: 0; }
+      .card { padding: 18px 6px 18px 6px; }
+      .next-btn { font-size: 1.01rem; padding: 14px 0; }
+      .option-btn { font-size: 0.97rem; padding: 13px 8px; }
+      .progress-circle { width: 24px; height: 24px; font-size: 1.07rem;}
+      .progress-label { font-size: 0.65rem; }
+      .card-title { font-size: 1.01rem; }
+      .question { font-size: 1.01rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="survey-container"></div>
+  <script>
+    // 질문 및 옵션 예시
+    const QUESTIONS = [
+      {
+        title: "캠핑 취향 맞히기",
+        question: "Q. 캠핑에서 가장 중요한 것은 무엇이라고 생각하시나요?",
+        options: ["분위기와 감성", "편리함과 안전", "액티비티와 재미"]
+      },
+      {
+        title: "캠핑 취향 맞히기",
+        question: "Q. 선호하는 캠핑장 스타일은 무엇인가요?",
+        options: ["자연 속 조용한 숲", "시설 좋은 오토캠핑장", "레저 즐기는 호숫가"]
+      },
+      {
+        title: "캠핑 취향 맞히기",
+        question: "Q. 캠핑 음식 준비 방식은?",
+        options: ["감성 가득 로컬 푸드", "간편한 즉석식", "직접 구워먹는 바비큐"]
+      }
+    ];
+    // 진행 상태
+    let currentStep = 0;
+    let selected = null;
+    let answers = [];
+    // 오렌지 컬러용 progress 아이콘
+    function getProgressIcon(active) {
+      return active
+        ? `<span class="progress-circle" style="background: var(--progress-active); color: #fff; border: 2px solid var(--main-orange-dark);">&#127793;</span>`
+        : `<span class="progress-circle">&#127793;</span>`; // 🍃(leaf) for demo, can use camping icon
+    }
+    function renderSurvey() {
+      const container = document.getElementById('survey-container');
+      container.innerHTML = `
+        <div class="progress-bar-wrap">
+          ${QUESTIONS.map((q, idx) => `
+            <div class="progress-step${idx === currentStep ? ' progress-active' : ''}">
+              ${getProgressIcon(idx === currentStep)}
+              <div class="progress-label">${idx+1}문항</div>
+            </div>
+            ${idx < QUESTIONS.length-1 
+              ? `<div class="progress-bar"><div class="progress-bar-fill" style="width:${idx<currentStep?'100%':'0%'}"></div></div>` 
+              : '' }
+          `).join('')}
+        </div>
+        <div class="card">
+          <div class="card-title">${QUESTIONS[currentStep].title}</div>
+          <div class="question">${QUESTIONS[currentStep].question}</div>
+          <div class="options">
+            ${QUESTIONS[currentStep].options.map((opt, idx) => `
+              <button class="option-btn${selected===idx?' selected':''}" data-idx="${idx}">
+                <span class="option-mark">${selected===idx?'✔':''}</span>${opt}
+              </button>
+            `).join('')}
+          </div>
+          <button class="next-btn" id="nextBtn" ${selected===null?'disabled':''}>
+            ${currentStep < QUESTIONS.length-1 ? '선택했어요' : '결과보기'}
+          </button>
+        </div>
+      `;
+      // 옵션 클릭 이벤트
+      document.querySelectorAll('.option-btn').forEach(btn => {
+        btn.onclick = () => {
+          selected = Number(btn.getAttribute('data-idx'));
+          renderSurvey();
+        };
+      });
+      // 다음/결과 버튼 클릭 이벤트
+      document.getElementById('nextBtn').onclick = () => {
+        if (selected !== null) {
+          answers[currentStep] = QUESTIONS[currentStep].options[selected];
+          if (currentStep < QUESTIONS.length-1) {
+            currentStep++; selected=null;
+            renderSurvey();
+          } else {
+            showResult();
+          }
+        }
+      };
+    }
+    // 결과 화면(예시, 실제 결과 로직/디자인 맞춤 필요)
+    function showResult() {
+      document.body.style.background = 'linear-gradient(180deg,#fff3e0 0%, #fffbe9 100%)';
+      document.getElementById('survey-container').innerHTML = `
+        <div class="card" style="margin-top:80px; border-radius:32px; box-shadow:0 8px 32px rgba(255,152,0,0.12);padding:44px 18px;">
+          <div style="font-size:1.23rem; font-weight:800; color:#ff9800; text-align:center; margin-bottom:20px;">캠핑 스타일 테스트 결과</div>
+          <div style="background:linear-gradient(120deg,#fff8e1 80%,#ffe0b2 100%);border-radius:24px;padding:30px 16px;text-align:center;box-shadow:0 2px 14px rgba(255,152,0,0.08);margin-bottom:28px;">
+            <div style="font-size:1.02rem; font-weight:700; color:#ff9800;margin-bottom:4px;">캠핑자격증</div>
+            <div style="font-size:1.08rem; font-weight:700; color:#222;margin-bottom:20px;">No. ${Math.floor(Math.random()*9000+1000)}</div>
+            <img src="https://cdn.pixabay.com/photo/2017/01/31/13/14/chick-2024580_1280.png"
+              alt="결과이미지" style="width:98px;height:98px;border-radius:50%;margin-bottom:16px;box-shadow:0 2px 14px rgba(255,152,0,0.13);background:#fff;">
+            <div style="font-size:1.35rem;font-weight:800;color:#222;margin-bottom:14px;">나의 캠핑 타입 : 감성 캠퍼</div>
+            <div style="font-size:1.02rem;color:#222;margin-bottom:8px;">부서 <span style="font-weight:700;color:#ff9800">감성 캠핑팀</span></div>
+            <div style="font-size:1.02rem;color:#222;">담당지역 <span style="font-weight:700;color:#ff9800">숲속 명소</span></div>
+          </div>
+          <ul style="list-style:none;padding:0;margin-bottom:18px;">
+            <li style="font-size:1.07rem;color:#444;margin-bottom:9px;"><span style="font-size:1.22rem;margin-right:8px;">🏅</span>분위기를 중시하는 감성 캠퍼! 자연과 조화를 즐깁니다.</li>
+            <li style="font-size:1.07rem;color:#444;margin-bottom:9px;"><span style="font-size:1.22rem;margin-right:8px;">🔍</span>감성 가득 캠핑을 즐기고 싶다면 자연을 찾아 떠나보세요.</li>
+            <li style="font-size:1.07rem;color:#444;"><span style="font-size:1.22rem;margin-right:8px;">🎓</span>새로운 경험을 소중하게 생각해요.</li>
+          </ul>
+          <button class="next-btn" onclick="window.location.reload()">다시하기</button>
+        </div>
+      `;
+    }
+    // 최초 렌더
+    renderSurvey();
+  </script>
+</body>
+</html>
