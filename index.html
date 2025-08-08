@@ -167,34 +167,166 @@
     .option-btn.selected .option-mark {
       display: block;
     }
-    .next-btn {
+    .result-card {
+      width: 92vw;
+      max-width: 430px;
+      margin: 55px auto 0 auto;
+      border-radius: 32px;
+      background: linear-gradient(120deg,#fff8e1 80%,#ffe0b2 100%);
+      box-shadow: 0 8px 32px rgba(255,152,0,0.12);
+      padding: 0 0 36px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .result-title {
       width: 100%;
-      margin: 24px auto 0 auto;
-      background: var(--main-orange);
-      color: #fff;
-      font-size: 1.18rem;
-      border: none;
-      border-radius: 16px;
-      padding: 18px 0;
+      text-align: center;
+      font-size: 1.30rem;
       font-weight: 700;
-      box-shadow: 0 2px 18px rgba(255,152,0,0.10);
-      cursor: pointer;
-      transition: background 0.18s;
+      color: var(--main-orange-dark);
+      margin-top: 36px;
+      margin-bottom: 28px;
+      letter-spacing: -0.5px;
+    }
+    .result-mainbox {
+      background: linear-gradient(135deg,#fff8e1 80%, #ffe0b2 100%);
+      border-radius: 26px;
+      box-shadow: 0 2px 14px rgba(255,152,0,0.08);
+      margin: 0 auto 26px auto;
+      width: 89%;
+      max-width: 370px;
+      padding: 34px 16px 25px 16px;
+      position: relative;
+      text-align: center;
+    }
+    .result-tag {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: #ffe0b2;
+      color: var(--main-orange-dark);
+      font-size: 0.92rem;
+      font-weight: 600;
+      border-radius: 12px;
+      padding: 6px 16px;
+      letter-spacing: -0.5px;
+      box-shadow: 0 2px 6px rgba(255,152,0,0.07);
+    }
+    .result-num {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: #ffe0b2;
+      color: var(--main-orange-dark);
+      font-size: 0.92rem;
+      font-weight: 600;
+      border-radius: 12px;
+      padding: 6px 16px;
+      box-shadow: 0 2px 6px rgba(255,152,0,0.07);
+      letter-spacing: -0.5px;
+    }
+    .result-mainimg {
+      width: 105px;
+      height: 105px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 14px rgba(255,152,0,0.11);
+      background: #fff;
+      margin-top: 30px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .result-username {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #222;
+      margin-bottom: 20px;
+      margin-top: 4px;
       letter-spacing: -1px;
     }
-    .next-btn:active,
-    .next-btn:hover {
+    .result-detail-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 1.02rem;
+      color: #222;
+      gap: 10px;
+    }
+    .result-detail-key {
+      color: var(--main-orange-dark);
+      font-weight: 600;
+      min-width: 60px;
+    }
+    .result-detail-val {
+      font-weight: 700;
+      color: #222;
+    }
+    .result-desc-list {
+      margin: 0 auto 10px auto;
+      padding: 0;
+      list-style: none;
+      width: 96%;
+      text-align: left;
+    }
+    .result-desc-list li {
+      font-size: 1.07rem;
+      color: #444;
+      margin-bottom: 10px;
+      line-height: 1.6;
+      display: flex;
+      align-items: center;
+    }
+    .result-desc-emoji {
+      font-size: 1.25rem;
+      margin-right: 8px;
+    }
+    .result-actions {
+      width: 92%;
+      max-width: 370px;
+      margin: 38px auto 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+      justify-content: center;
+    }
+    .result-action-btn {
+      width: 100%;
+      background: var(--main-orange);
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      padding: 18px 0;
+      font-size: 1.08rem;
+      font-family: inherit;
+      font-weight: 700;
+      text-align: center;
+      box-shadow: 0 1px 10px rgba(255,152,0,0.10);
+      cursor: pointer;
+      margin-bottom: 0;
+      margin-top: 0;
+      letter-spacing: -1px;
+      transition: background 0.16s, color 0.16s;
+    }
+    .result-action-btn:hover {
       background: var(--main-orange-dark);
     }
     @media (max-width: 500px) {
       .container { padding: 0; }
       .card { padding: 18px 6px 18px 6px; }
-      .next-btn { font-size: 1.01rem; padding: 14px 0; }
       .option-btn { font-size: 0.97rem; padding: 13px 8px; }
       .progress-circle { width: 24px; height: 24px; font-size: 1.07rem;}
       .progress-label { font-size: 0.65rem; }
       .card-title { font-size: 1.01rem; }
       .question { font-size: 1.01rem; }
+      .result-title { font-size: 1.1rem; }
+      .result-username { font-size: 1.1rem; }
+      .result-mainbox { padding: 24px 6px 14px 6px; }
+      .result-mainimg { width: 80px; height: 80px; }
     }
   </style>
 </head>
@@ -205,29 +337,63 @@
     const QUESTIONS = [
       {
         title: "캠핑 취향 맞히기",
-        question: "Q. 캠핑에서 가장 중요한 것은 무엇이라고 생각하시나요?",
+        question: "캠핑에서 가장 중요한 것은 무엇이라고 생각하시나요?",
         options: ["분위기와 감성", "편리함과 안전", "액티비티와 재미"]
       },
       {
         title: "캠핑 취향 맞히기",
-        question: "Q. 선호하는 캠핑장 스타일은 무엇인가요?",
+        question: "선호하는 캠핑장 스타일은 무엇인가요?",
         options: ["자연 속 조용한 숲", "시설 좋은 오토캠핑장", "레저 즐기는 호숫가"]
       },
       {
         title: "캠핑 취향 맞히기",
-        question: "Q. 캠핑 음식 준비 방식은?",
+        question: "캠핑 음식 준비 방식은?",
         options: ["감성 가득 로컬 푸드", "간편한 즉석식", "직접 구워먹는 바비큐"]
       }
     ];
+    // 결과 예시
+    const RESULT_DATA = {
+      emotional: {
+        img: 'https://cdn.pixabay.com/photo/2017/01/31/13/14/chick-2024580_1280.png',
+        title: '감성 캠퍼',
+        desc: [
+          '분위기를 중시하는 감성 캠퍼! 자연과 조화를 즐깁니다.',
+          '감성 가득 캠핑을 즐기고 싶다면 자연을 찾아 떠나보세요.',
+          '새로운 경험을 소중하게 생각해요.'
+        ],
+        mainjob: '감성 캠핑팀',
+        region: '숲속 명소'
+      },
+      practical: {
+        img: 'https://cdn.pixabay.com/photo/2014/04/03/10/32/tent-312441_1280.png',
+        title: '실속 캠퍼',
+        desc: [
+          '편리함과 안전을 우선하는 실속 캠퍼! 준비가 철저해요.',
+          '꼼꼼한 준비와 안전을 중시하는 당신에게 오토캠핑이 딱!',
+          '실용적인 캠핑 아이템에 관심이 많아요.'
+        ],
+        mainjob: '오토캠핑팀',
+        region: '편리한 오토캠핑장'
+      },
+      active: {
+        img: 'https://cdn.pixabay.com/photo/2017/06/20/19/22/children-2424364_1280.jpg',
+        title: '액티브 캠퍼',
+        desc: [
+          '즐거움과 액티비티를 사랑하는 액티브 캠퍼! 에너지가 넘칩니다.',
+          '다양한 레저와 액티비티가 있는 캠핑장을 좋아해요.',
+          '새로운 도전을 항상 즐깁니다.'
+        ],
+        mainjob: '액티비티팀',
+        region: '레저 캠핑장'
+      }
+    };
     // 진행 상태
     let currentStep = 0;
-    let selected = null;
     let answers = [];
-    // 오렌지 컬러용 progress 아이콘
     function getProgressIcon(active) {
       return active
         ? `<span class="progress-circle" style="background: var(--progress-active); color: #fff; border: 2px solid var(--main-orange-dark);">&#127793;</span>`
-        : `<span class="progress-circle">&#127793;</span>`; // 🍃(leaf) for demo, can use camping icon
+        : `<span class="progress-circle">&#127793;</span>`;
     }
     function renderSurvey() {
       const container = document.getElementById('survey-container');
@@ -248,61 +414,77 @@
           <div class="question">${QUESTIONS[currentStep].question}</div>
           <div class="options">
             ${QUESTIONS[currentStep].options.map((opt, idx) => `
-              <button class="option-btn${selected===idx?' selected':''}" data-idx="${idx}">
-                <span class="option-mark">${selected===idx?'✔':''}</span>${opt}
+              <button class="option-btn" data-idx="${idx}">
+                ${opt}
               </button>
             `).join('')}
           </div>
-          <button class="next-btn" id="nextBtn" ${selected===null?'disabled':''}>
-            ${currentStep < QUESTIONS.length-1 ? '선택했어요' : '결과보기'}
-          </button>
         </div>
       `;
-      // 옵션 클릭 이벤트
       document.querySelectorAll('.option-btn').forEach(btn => {
         btn.onclick = () => {
-          selected = Number(btn.getAttribute('data-idx'));
-          renderSurvey();
-        };
-      });
-      // 다음/결과 버튼 클릭 이벤트
-      document.getElementById('nextBtn').onclick = () => {
-        if (selected !== null) {
-          answers[currentStep] = QUESTIONS[currentStep].options[selected];
+          answers[currentStep] = QUESTIONS[currentStep].options[Number(btn.getAttribute('data-idx'))];
           if (currentStep < QUESTIONS.length-1) {
-            currentStep++; selected=null;
+            currentStep++;
             renderSurvey();
           } else {
             showResult();
           }
-        }
-      };
+        };
+      });
     }
-    // 결과 화면(예시, 실제 결과 로직/디자인 맞춤 필요)
     function showResult() {
-      document.body.style.background = 'linear-gradient(180deg,#fff3e0 0%, #fffbe9 100%)';
+      // 결과 타입 결정 (예시: 가장 많이 고른 type)
+      const scoreMap = { emotional: 0, practical: 0, active: 0 };
+      for (let i = 0; i < QUESTIONS.length; i++) {
+        const opt = QUESTIONS[i].options.indexOf(answers[i]);
+        if (opt === 0) scoreMap.emotional++;
+        else if (opt === 1) scoreMap.practical++;
+        else scoreMap.active++;
+      }
+      const type = Object.keys(scoreMap).reduce((a,b)=>scoreMap[a]>scoreMap[b]?a:b);
+      const data = RESULT_DATA[type];
       document.getElementById('survey-container').innerHTML = `
-        <div class="card" style="margin-top:80px; border-radius:32px; box-shadow:0 8px 32px rgba(255,152,0,0.12);padding:44px 18px;">
-          <div style="font-size:1.23rem; font-weight:800; color:#ff9800; text-align:center; margin-bottom:20px;">캠핑 스타일 테스트 결과</div>
-          <div style="background:linear-gradient(120deg,#fff8e1 80%,#ffe0b2 100%);border-radius:24px;padding:30px 16px;text-align:center;box-shadow:0 2px 14px rgba(255,152,0,0.08);margin-bottom:28px;">
-            <div style="font-size:1.02rem; font-weight:700; color:#ff9800;margin-bottom:4px;">캠핑자격증</div>
-            <div style="font-size:1.08rem; font-weight:700; color:#222;margin-bottom:20px;">No. ${Math.floor(Math.random()*9000+1000)}</div>
-            <img src="https://cdn.pixabay.com/photo/2017/01/31/13/14/chick-2024580_1280.png"
-              alt="결과이미지" style="width:98px;height:98px;border-radius:50%;margin-bottom:16px;box-shadow:0 2px 14px rgba(255,152,0,0.13);background:#fff;">
-            <div style="font-size:1.35rem;font-weight:800;color:#222;margin-bottom:14px;">나의 캠핑 타입 : 감성 캠퍼</div>
-            <div style="font-size:1.02rem;color:#222;margin-bottom:8px;">부서 <span style="font-weight:700;color:#ff9800">감성 캠핑팀</span></div>
-            <div style="font-size:1.02rem;color:#222;">담당지역 <span style="font-weight:700;color:#ff9800">숲속 명소</span></div>
+        <div class="result-card">
+          <div class="result-title">${data.title}가 된 것을 축하합니다!</div>
+          <div class="result-mainbox">
+            <span class="result-tag">${data.title} 자격증</span>
+            <span class="result-num">No. ${Math.floor(Math.random() * 9000) + 1000}</span>
+            <img class="result-mainimg" src="${data.img}" alt="${data.title}">
+            <div class="result-username">${type === 'emotional' ? 'guest' : type}</div>
+            <div class="result-detail-row">
+              <span class="result-detail-key">부서</span>
+              <span class="result-detail-val">${data.mainjob}</span>
+            </div>
+            <div class="result-detail-row">
+              <span class="result-detail-key">담당지역</span>
+              <span class="result-detail-val">${data.region}</span>
+            </div>
           </div>
-          <ul style="list-style:none;padding:0;margin-bottom:18px;">
-            <li style="font-size:1.07rem;color:#444;margin-bottom:9px;"><span style="font-size:1.22rem;margin-right:8px;">🏅</span>분위기를 중시하는 감성 캠퍼! 자연과 조화를 즐깁니다.</li>
-            <li style="font-size:1.07rem;color:#444;margin-bottom:9px;"><span style="font-size:1.22rem;margin-right:8px;">🔍</span>감성 가득 캠핑을 즐기고 싶다면 자연을 찾아 떠나보세요.</li>
-            <li style="font-size:1.07rem;color:#444;"><span style="font-size:1.22rem;margin-right:8px;">🎓</span>새로운 경험을 소중하게 생각해요.</li>
+          <ul class="result-desc-list">
+            ${data.desc.map((d,i)=>`<li><span class="result-desc-emoji">${['🏅','🔍','🎓'][i]}</span>${d}</li>`).join('')}
           </ul>
-          <button class="next-btn" onclick="window.location.reload()">다시하기</button>
+          <div class="result-actions">
+            <button class="result-action-btn" id="shareBtn">공유하기</button>
+            <button class="result-action-btn" id="couponBtn">쿠폰받기</button>
+          </div>
         </div>
       `;
+      document.getElementById('shareBtn').onclick = function() {
+        if (navigator.share) {
+          navigator.share({
+            title: '나의 캠핑 스타일 결과',
+            text: `나는 ${data.title}! 당신도 캠핑 스타일 테스트 해보세요.`,
+            url: window.location.href
+          });
+        } else {
+          alert('공유 기능이 지원되지 않는 브라우저입니다.');
+        }
+      };
+      document.getElementById('couponBtn').onclick = function() {
+        window.location.href = 'https://snowlinemall.com/product/list.html?cate_no=424';
+      };
     }
-    // 최초 렌더
     renderSurvey();
   </script>
 </body>
