@@ -2,15 +2,27 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>나의 캠핑 스타일 테스트</title>
+  <title>캠핑 스타일 테스트</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
   <style>
+    :root {
+      --main-bg: #f6f9ff;
+      --card-bg: #fff;
+      --main-text: #222;
+      --border-radius: 32px;
+      --option-hover: #f7f3ff;
+      --option-selected: #ffe7b2;
+      --main-orange: #ffb400;
+      --main-orange-dark: #ff9800;
+      --shadow-card: 0 6px 32px rgba(0,0,0,0.07);
+      --shadow-result: 0 8px 40px rgba(255,180,0,0.11);
+    }
     html, body {
       height: 100%;
       margin: 0;
       padding: 0;
-      background: #f8fafc;
+      background: var(--main-bg);
     }
     body {
       font-family: 'Pretendard', Arial, sans-serif;
@@ -21,148 +33,254 @@
       align-items: flex-start;
     }
     .container {
-      width: 100%;
+      width: 100vw;
       max-width: 430px;
+      min-height: 100vh;
+      background: var(--main-bg);
       margin: 0 auto;
-      background: #fff;
-      border-radius: 28px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
-      padding: 48px 22px 44px 22px;
-      box-sizing: border-box;
-      margin-top: 36px;
-      margin-bottom: 36px;
-    }
-    @media (max-width: 550px) {
-      .container {
-        max-width: 96vw;
-        padding: 32px 8vw 32px 8vw;
-        margin-top: 12px;
-        margin-bottom: 12px;
-      }
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      position: relative;
+      padding-bottom: 40px;
     }
     .hidden { display: none; }
-    h1 {
-      font-weight: 500;
-      font-size: 2.2rem;
-      margin-bottom: 32px;
+    /* 질문 카드 */
+    .card {
+      width: 92%;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-card);
+      margin-top: 36px;
+      padding: 38px 20px 38px 20px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .question-title {
+      font-size: 1.19rem;
+      font-weight: 700;
+      color: var(--main-text);
+      text-align: center;
+      margin-bottom: 38px;
+      line-height: 1.5;
       letter-spacing: -1px;
-      text-align: center;
     }
-    h2 {
-      font-weight: 500;
-      font-size: 1.35rem;
-      margin-bottom: 26px;
-      letter-spacing: -0.5px;
-      text-align: center;
-    }
-    p {
-      font-size: 1.13rem;
-      margin-bottom: 56px;
-      color: #333;
-      text-align: center;
-      line-height: 1.7;
-    }
-    #question {
-      font-size: 1.22rem;
-      font-weight: 500;
-      margin-bottom: 42px;
-      letter-spacing: -0.5px;
-      text-align: center;
-    }
-    .option {
-      display: block;
+    .option-list {
       width: 100%;
-      margin-bottom: 32px;
-      padding: 18px 0;
-      font-size: 1.09rem;
-      font-family: 'Pretendard', Arial, sans-serif;
-      background: #e9ecef;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-bottom: 0;
+      align-items: stretch;
+      justify-content: center;
+    }
+    .option-btn {
+      width: 100%;
+      background: var(--card-bg);
+      font-size: 1.11rem;
+      color: var(--main-text);
+      border: none;
+      border-radius: 16px;
+      box-shadow: var(--shadow-card);
+      padding: 22px 16px;
+      margin: 0 auto;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 500;
+      text-align: center;
+      transition: background 0.18s, box-shadow 0.18s;
+      outline: none;
+      position: relative;
+      border: 2px solid transparent;
+    }
+    .option-btn:active,
+    .option-btn:hover {
+      background: var(--option-hover);
+      box-shadow: 0 2px 12px rgba(255,180,0,0.10);
+    }
+    .option-btn.selected {
+      background: var(--option-selected);
+      border: 2px solid var(--main-orange);
+      box-shadow: 0 4px 24px rgba(255,180,0,0.10);
+    }
+    /* 결과 화면 */
+    .result-card {
+      width: 96vw;
+      max-width: 430px;
+      margin: 0 auto;
+      background: linear-gradient(145deg, #fff8e1 60%, #ffe7b2 100%);
+      border-radius: 40px;
+      box-shadow: var(--shadow-result);
+      margin-top: 36px;
+      padding: 0 0 38px 0;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      min-height: 620px;
+    }
+    .result-top {
+      width: 100%;
+      padding: 38px 0 0 0;
+      text-align: center;
+    }
+    .result-year {
+      font-size: 1.05rem;
+      color: #a0936a;
+      font-weight: 500;
+      margin-bottom: 22px;
+    }
+    .result-title {
+      font-size: 2.1rem;
+      font-weight: 800;
       color: #222;
-      border: none;
-      border-radius: 19px;
-      cursor: pointer;
-      font-weight: 500;
-      transition: background 0.18s;
-      box-sizing: border-box;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      margin-bottom: 12px;
+      line-height: 1.2;
+      word-break: keep-all;
     }
-    .option:last-child {
-      margin-bottom: 0;
+    .result-type {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--main-orange-dark);
+      margin-bottom: 30px;
+      line-height: 1.2;
+      word-break: keep-all;
     }
-    .option:hover, .option:active {
-      background: #d0d9e6;
-    }
-    button {
-      padding: 18px 0;
-      width: 100%;
-      font-size: 1.18rem;
-      font-family: 'Pretendard', Arial, sans-serif;
-      background: #0d6efd;
-      color: #fff;
-      border: none;
-      border-radius: 19px;
-      box-shadow: 0 2px 8px rgba(13,110,253,0.10);
-      cursor: pointer;
-      font-weight: 500;
-      transition: background 0.2s, opacity 0.2s;
-      margin-bottom: 36px;
+    .result-img {
+      width: 190px;
+      height: 190px;
+      object-fit: contain;
+      margin-bottom: 22px;
       margin-top: 4px;
-      box-sizing: border-box;
-    }
-    button:last-child {
-      background: #ffb400;
-      color: #333;
-      margin-bottom: 0;
-    }
-    button:hover, button:active {
-      opacity: .92;
-      background: #0056b3;
-    }
-    #result-screen img {
-      max-width: 210px;
-      margin-bottom: 29px;
-      border-radius: 18px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.10);
+      border-radius: 28px;
+      box-shadow: 0 4px 20px rgba(255,180,0,0.13);
+      background: #fffbe9;
       display: block;
       margin-left: auto;
       margin-right: auto;
     }
-    .center { text-align: center; }
-    @media (max-width: 430px) {
-      h1 { font-size: 1.5rem; }
-      h2 { font-size: 1.07rem; }
-      p { font-size: 0.97rem; }
-      .container { padding: 18px 2vw 18px 2vw; }
-      #result-screen img { max-width: 62vw; }
+    .result-desc-wrap {
+      width: 92%;
+      background: rgba(255,255,255,0.92);
+      border-radius: 25px;
+      padding: 18px 12px;
+      margin: 0 auto;
+      box-shadow: 0 2px 10px rgba(255,180,0,0.07);
+      margin-bottom: 18px;
+      margin-top: 6px;
+      font-size: 1.08rem;
+      color: #555;
+      font-weight: 500;
+      line-height: 1.7;
     }
-    /* For ultra small screens */
+    .result-desc-wrap > div {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 1.08rem;
+      color: #555;
+      line-height: 1.5;
+    }
+    .result-desc-wrap > div:last-child { margin-bottom: 0; }
+    .result-desc-emoji {
+      font-size: 1.32rem;
+      margin-right: 8px;
+    }
+    .result-share-btn {
+      width: 80vw;
+      max-width: 360px;
+      background: var(--main-orange);
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      padding: 20px 0;
+      font-size: 1.15rem;
+      font-family: inherit;
+      font-weight: 700;
+      text-align: center;
+      box-shadow: 0 1px 8px rgba(255,180,0,0.13);
+      margin: 22px auto 0 auto;
+      cursor: pointer;
+      transition: background 0.18s, opacity 0.18s;
+      display: block;
+      letter-spacing: -1px;
+      opacity: 0.93;
+    }
+    .result-share-btn:hover, .result-share-btn:active {
+      background: var(--main-orange-dark);
+      opacity: 1;
+    }
+    .result-coupon-btn {
+      width: 80vw;
+      max-width: 360px;
+      background: #fff;
+      color: var(--main-orange-dark);
+      border: none;
+      border-radius: 14px;
+      padding: 20px 0;
+      font-size: 1.15rem;
+      font-family: inherit;
+      font-weight: 700;
+      text-align: center;
+      box-shadow: 0 1px 8px rgba(255,180,0,0.12);
+      margin: 10px auto 0 auto;
+      cursor: pointer;
+      transition: background 0.18s, opacity 0.18s;
+      display: block;
+      letter-spacing: -1px;
+      opacity: 0.93;
+    }
+    .result-coupon-btn:hover, .result-coupon-btn:active {
+      background: #ffe7b2;
+      opacity: 1;
+    }
+    @media (max-width: 430px) {
+      .container { padding: 0 0vw; }
+      .card { padding: 28px 6px; }
+      .option-btn { font-size: 1.01rem; padding: 16px 8px; }
+      .result-card { padding: 0 0 18px 0; min-height: 540px;}
+      .result-desc-wrap { font-size: 0.97rem; }
+      .result-title { font-size: 1.5rem; }
+      .result-type { font-size: 1.10rem; }
+      .result-img { width: 120px; height: 120px;}
+      .result-year { font-size: 0.95rem; }
+      .result-share-btn, .result-coupon-btn { font-size: 1rem; padding: 14px 0;}
+    }
     @media (max-width: 350px) {
-      h1, h2 { font-size: 1rem; }
-      p { font-size: 0.8rem; }
-      .container { padding: 6px 1vw 6px 1vw; }
+      .container { padding: 0 0vw; }
+      .option-btn { font-size: 0.89rem; padding: 12px 4px; }
+      .result-card { min-height: 420px;}
+      .result-desc-wrap { font-size: 0.86rem; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- 시작 화면 -->
-    <div id="start-screen" class="center">
-      <h1>나의 캠핑 스타일 테스트</h1>
-      <p>내 캠핑 취향을 간단하게 알아보고<br>나와 어울리는 캠퍼 타입을 확인하세요!</p>
-      <button onclick="startTest()">시작하기</button>
+    <!-- 질문 카드 -->
+    <div class="card" id="questionCard">
+      <div class="question-title" id="question"></div>
+      <div class="option-list" id="options"></div>
     </div>
-    <!-- 질문 화면 -->
-    <div id="question-screen" class="hidden">
-      <div id="question"></div>
-      <div id="options"></div>
-    </div>
-    <!-- 결과 화면 -->
-    <div id="result-screen" class="hidden center">
-      <img id="resultImg" alt="캠핑 타입 이미지" />
-      <h2 id="resultTitle"></h2>
-      <p id="resultDesc"></p>
-      <button id="shareBtn">공유하기</button>
-      <button onclick="getCoupon()">쿠폰 받기</button>
+    <!-- 결과 카드 -->
+    <div class="result-card hidden" id="resultCard">
+      <div class="result-top">
+        <div class="result-year" id="resultYear">2024년의 당신은</div>
+        <div class="result-title" id="resultTitle">매일 발전하는<br>똑똑이</div>
+        <div class="result-type" id="resultType">감성 캠퍼</div>
+      </div>
+      <img class="result-img" id="resultImg" src="https://cdn.pixabay.com/photo/2017/01/31/13/14/chick-2024580_1280.png" alt="결과 이미지">
+      <div class="result-desc-wrap" id="resultDescWrap">
+        <div><span class="result-desc-emoji">🏅</span><span>분위기를 중시하는 감성 캠퍼! 자연과 조화를 즐깁니다.</span></div>
+        <div><span class="result-desc-emoji">🔍</span><span>편리함과 안전을 우선하는 실속 캠퍼! 준비가 철저해요.</span></div>
+        <div><span class="result-desc-emoji">🎓</span><span>즐거움과 액티비티를 사랑하는 액티브 캠퍼! 에너지가 넘칩니다.</span></div>
+      </div>
+      <button class="result-share-btn" id="shareBtn">공유하기</button>
+      <button class="result-coupon-btn" id="couponBtn">쿠폰 받기</button>
     </div>
   </div>
   <script>
@@ -205,82 +323,112 @@
     // 결과 정보
     const resultInfo = {
       emotional: {
-        img: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=cover&w=400&q=80',
-        title: '감성 캠퍼',
-        desc: '분위기를 중시하는 감성 캠퍼! 자연과 조화를 즐깁니다.'
+        type: '감성 캠퍼',
+        title: '분위기를 중시하는<br>감성 캠퍼',
+        img: 'https://cdn.pixabay.com/photo/2017/01/31/13/14/chick-2024580_1280.png',
+        desc: [
+          '분위기를 중시하는 감성 캠퍼! 자연과 조화를 즐깁니다.',
+          '편리함과 안전을 우선하는 실속 캠퍼! 준비가 철저해요.',
+          '즐거움과 액티비티를 사랑하는 액티브 캠퍼! 에너지가 넘칩니다.'
+        ],
+        emojis: ['🏅','🔍','🎓']
       },
       practical: {
-        img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=cover&w=400&q=80',
-        title: '실속 캠퍼',
-        desc: '편리함과 안전을 우선하는 실속 캠퍼! 준비가 철저해요.'
+        type: '실속 캠퍼',
+        title: '실속을 중시하는<br>실속 캠퍼',
+        img: 'https://cdn.pixabay.com/photo/2017/01/31/13/14/chick-2024580_1280.png',
+        desc: [
+          '준비가 철저한 실속 캠퍼! 항상 안전을 먼저 생각합니다.',
+          '분위기도 신경쓰지만 실용성을 우선해요.',
+          '액티비티보단 휴식이 중요합니다.'
+        ],
+        emojis: ['🏅','🔍','🎓']
       },
       active: {
-        img: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=cover&w=400&q=80',
-        title: '액티브 캠퍼',
-        desc: '즐거움과 액티비티를 사랑하는 액티브 캠퍼! 에너지가 넘칩니다.'
+        type: '액티브 캠퍼',
+        title: '에너지가 넘치는<br>액티브 캠퍼',
+        img: 'https://cdn.pixabay.com/photo/2017/01/31/13/14/chick-2024580_1280.png',
+        desc: [
+          '즐거움과 액티비티를 사랑하는 액티브 캠퍼! 에너지가 넘칩니다.',
+          '분위기도 중요하지만 활동이 더 좋아요.',
+          '새로운 경험을 항상 추구합니다.'
+        ],
+        emojis: ['🏅','🔍','🎓']
       }
     };
 
     let current = 0;
     let scores = { emotional: 0, practical: 0, active: 0 };
 
-    function startTest() {
-      document.getElementById('start-screen').classList.add('hidden');
-      document.getElementById('question-screen').classList.remove('hidden');
-      current = 0;
-      scores = { emotional: 0, practical: 0, active: 0 };
-      showQuestion();
-    }
-
-    function showQuestion() {
+    function renderQuestion() {
       document.getElementById('question').innerText = questions[current].text;
       const optionsDiv = document.getElementById('options');
       optionsDiv.innerHTML = '';
-      questions[current].options.forEach((opt) => {
+      questions[current].options.forEach((opt, idx) => {
         const btn = document.createElement('button');
-        btn.className = 'option';
+        btn.className = 'option-btn';
         btn.innerText = opt.text;
-        btn.onclick = () => selectOption(opt.type);
+        btn.onclick = () => selectOption(opt.type, btn);
         optionsDiv.appendChild(btn);
       });
     }
 
-    function selectOption(type) {
+    function selectOption(type, btn) {
       scores[type]++;
+      // 바로 다음 질문으로 넘어감
       current++;
       if (current < questions.length) {
-        showQuestion();
+        renderQuestion();
       } else {
         showResult();
       }
     }
 
     function showResult() {
-      document.getElementById('question-screen').classList.add('hidden');
-      document.getElementById('result-screen').classList.remove('hidden');
+      document.getElementById('questionCard').classList.add('hidden');
+      document.getElementById('resultCard').classList.remove('hidden');
+
+      // 자동 연도 표기
+      document.getElementById('resultYear').innerText = `${new Date().getFullYear()}년의 당신은`;
+
+      // 결과 타입 결정
       const resultType = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
       const info = resultInfo[resultType];
-      document.getElementById('resultImg').src = info.img;
-      document.getElementById('resultTitle').innerText = info.title;
-      document.getElementById('resultDesc').innerText = info.desc;
 
-      // 공유 버튼 이벤트
+      document.getElementById('resultTitle').innerHTML = info.title;
+      document.getElementById('resultType').innerText = info.type;
+      document.getElementById('resultImg').src = info.img;
+
+      // 결과 설명
+      const descWrap = document.getElementById('resultDescWrap');
+      descWrap.innerHTML = '';
+      info.desc.forEach((d, i) => {
+        const row = document.createElement('div');
+        row.innerHTML = `<span class="result-desc-emoji">${info.emojis[i]}</span><span>${d}</span>`;
+        descWrap.appendChild(row);
+      });
+
+      // 공유 버튼
       document.getElementById('shareBtn').onclick = function() {
         if (navigator.share) {
           navigator.share({
             title: '나의 캠핑 스타일 결과',
-            text: `나는 ${info.title}! 당신도 테스트 해보세요.`,
+            text: `나는 ${info.type}! 당신도 캠핑 스타일 테스트 해보세요.`,
             url: window.location.href
           });
         } else {
           alert('공유 기능이 지원되지 않는 브라우저입니다.');
         }
       };
+
+      // 쿠폰 버튼
+      document.getElementById('couponBtn').onclick = function() {
+        window.location.href = 'https://snowlinemall.com/product/list.html?cate_no=424';
+      };
     }
 
-    function getCoupon() {
-      window.location.href = 'https://snowlinemall.com/article/%EC%9D%B4%EB%B2%A4%ED%8A%B8/32/48901/';
-    }
+    // 최초 렌더
+    renderQuestion();
   </script>
 </body>
 </html>
