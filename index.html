@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>스노우라인 캠핑 스타일 설문</title>
+  <title>나의 캠핑 스타일은?</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     :root {
@@ -20,6 +20,17 @@
       --progress-inactive: #ffe0b2;
       --option-selected: #fff3e0;
       --option-hover: #fff8e1;
+      --btn-orange: #ff9800;
+      --btn-orange-dark: #ff7d00;
+      --btn-gray: #f4f4f6;
+      --btn-gray-text: #888;
+      --btn-white: #fff;
+      --btn-coupon-bg: #ff9800;
+      --btn-coupon-text: #fff;
+      --btn-share-bg: #fff4e0;
+      --btn-share-text: #ff9800;
+      --btn-save-bg: #f4f4f6;
+      --btn-save-text: #888;
     }
     body {
       background: var(--main-bg);
@@ -39,6 +50,74 @@
       align-items: center;
       justify-content: flex-start;
     }
+    /* 시작하기 페이지 스타일 */
+    .start-wrap {
+      width: 100vw;
+      max-width: 430px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--card-bg);
+      margin: 0 auto;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .start-img {
+      width: 60vw;
+      max-width: 320px;
+      margin-bottom: 34px;
+      margin-top: 34px;
+      display: block;
+    }
+    .start-title {
+      font-size: 2.0rem;
+      font-weight: 800;
+      color: #222;
+      text-align: center;
+      margin-bottom: 22px;
+      letter-spacing: -1px;
+      line-height: 1.3;
+    }
+    .start-desc {
+      font-size: 1.12rem;
+      color: #666;
+      text-align: center;
+      margin-bottom: 38px;
+      line-height: 1.5;
+      font-weight: 400;
+      letter-spacing: -0.5px;
+    }
+    .start-btn {
+      width: 80vw;
+      max-width: 380px;
+      background: var(--main-orange);
+      color: #fff;
+      border: none;
+      border-radius: 16px;
+      padding: 22px 0;
+      font-size: 1.24rem;
+      font-weight: 700;
+      text-align: center;
+      box-shadow: 0 2px 18px rgba(255,152,0,0.14);
+      cursor: pointer;
+      transition: background 0.18s;
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+      margin-top: 8px;
+      display: block;
+    }
+    .start-btn:hover {
+      background: var(--main-orange-dark);
+    }
+    @media (max-width: 500px) {
+      .start-title { font-size: 1.3rem; }
+      .start-img { width: 90vw; max-width: 220px;}
+      .start-desc { font-size: 1rem; margin-bottom: 30px;}
+      .start-btn { font-size: 1.05rem; padding: 16px 0;}
+    }
+    /* 이하 설문/결과 스타일 (이전 답변과 동일, 생략 가능) */
     .progress-bar-wrap {
       width: 90%;
       margin: 28px auto 12px auto;
@@ -97,16 +176,17 @@
       transition: width 0.3s;
     }
     .card {
-      width: 92%;
+      width: 90vw;
       max-width: 430px;
       background: var(--card-bg);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-card);
-      padding: 32px 18px 32px 18px;
+      padding: 32px 24px 32px 24px;
       margin: 0 auto 26px auto;
       display: flex;
       flex-direction: column;
       align-items: stretch;
+      box-sizing: border-box;
     }
     .card-title {
       font-size: 1.16rem;
@@ -167,15 +247,15 @@
     .option-btn.selected .option-mark {
       display: block;
     }
-    /* 결과 카드 좌우 마진 통일 */
+    /* 결과 카드 좌우 마진 더 넓게 */
     .result-card {
-      width: 92%;
+      width: 98vw;
       max-width: 430px;
       margin: 55px auto 0 auto;
       border-radius: 32px;
       background: linear-gradient(120deg,#fff8e1 80%,#ffe0b2 100%);
       box-shadow: 0 8px 32px rgba(255,152,0,0.12);
-      padding: 0 18px 36px 18px;
+      padding: 0 34px 36px 34px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -188,8 +268,28 @@
       font-weight: 700;
       color: var(--main-orange-dark);
       margin-top: 36px;
-      margin-bottom: 28px;
+      margin-bottom: 16px;
       letter-spacing: -0.5px;
+    }
+    .result-subtitle {
+      width: 100%;
+      text-align: center;
+      font-size: 1.07rem;
+      font-weight: 500;
+      color: #222;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+    .result-coupon-msg {
+      width: 100%;
+      text-align: center;
+      font-size: 1rem;
+      color: var(--main-orange-dark);
+      margin-bottom: 22px;
+      font-weight: 600;
+      background: #fff3e0;
+      border-radius: 12px;
+      padding: 10px 0;
     }
     .result-mainbox {
       background: linear-gradient(135deg,#fff8e1 80%, #ffe0b2 100%);
@@ -203,32 +303,6 @@
       text-align: center;
       box-sizing: border-box;
     }
-    .result-tag {
-      position: absolute;
-      top: 16px;
-      left: 16px;
-      background: #ffe0b2;
-      color: var(--main-orange-dark);
-      font-size: 0.92rem;
-      font-weight: 600;
-      border-radius: 12px;
-      padding: 6px 16px;
-      letter-spacing: -0.5px;
-      box-shadow: 0 2px 6px rgba(255,152,0,0.07);
-    }
-    .result-num {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      background: #ffe0b2;
-      color: var(--main-orange-dark);
-      font-size: 0.92rem;
-      font-weight: 600;
-      border-radius: 12px;
-      padding: 6px 16px;
-      box-shadow: 0 2px 6px rgba(255,152,0,0.07);
-      letter-spacing: -0.5px;
-    }
     .result-mainimg {
       width: 105px;
       height: 105px;
@@ -241,14 +315,6 @@
       display: block;
       margin-left: auto;
       margin-right: auto;
-    }
-    .result-username {
-      font-size: 1.35rem;
-      font-weight: 800;
-      color: #222;
-      margin-bottom: 20px;
-      margin-top: 4px;
-      letter-spacing: -1px;
     }
     .result-detail-row {
       display: flex;
@@ -293,14 +359,13 @@
       margin: 38px auto 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
       align-items: center;
       justify-content: center;
     }
+    /* 버튼 명도 다르게, 쿠폰이 가장 강조 */
     .result-action-btn {
       width: 100%;
-      background: var(--main-orange);
-      color: #fff;
       border: none;
       border-radius: 14px;
       padding: 18px 0;
@@ -314,31 +379,66 @@
       margin-top: 0;
       letter-spacing: -1px;
       transition: background 0.16s, color 0.16s;
+      display: block;
     }
-    .result-action-btn:hover {
+    .result-action-btn.coupon {
+      background: var(--btn-coupon-bg);
+      color: var(--btn-coupon-text);
+      font-size: 1.14rem;
+      font-weight: 800;
+      box-shadow: 0 2px 12px rgba(255,152,0,0.23);
+      border: 2px solid var(--main-orange-dark);
+    }
+    .result-action-btn.coupon:hover {
       background: var(--main-orange-dark);
+      color: #fff;
+      border: 2px solid var(--main-orange-dark);
+    }
+    .result-action-btn.share {
+      background: var(--btn-share-bg);
+      color: var(--btn-share-text);
+      font-weight: 700;
+      border: 2px solid #fff;
+    }
+    .result-action-btn.share:hover {
+      background: var(--main-orange);
+      color: #fff;
+      border: 2px solid var(--main-orange-dark);
+    }
+    .result-action-btn.save {
+      background: var(--btn-save-bg);
+      color: var(--btn-save-text);
+      font-weight: 700;
+      border: 2px solid #eee;
+    }
+    .result-action-btn.save:hover {
+      background: var(--option-selected);
+      color: var(--main-orange-dark);
+      border: 2px solid var(--main-orange-dark);
     }
     @media (max-width: 500px) {
       .container { padding: 0; }
-      .card { padding: 18px 6px 18px 6px; }
+      .card { padding: 18px 6vw 18px 6vw; }
       .option-btn { font-size: 0.97rem; padding: 13px 8px; }
       .progress-circle { width: 24px; height: 24px; font-size: 1.07rem;}
       .progress-label { font-size: 0.65rem; }
       .card-title { font-size: 1.01rem; }
       .question { font-size: 1.01rem; }
       .result-title { font-size: 1.1rem; }
-      .result-username { font-size: 1.1rem; }
       .result-mainbox { padding: 24px 6px 14px 6px; }
       .result-mainimg { width: 80px; height: 80px; }
-      .result-card { padding-left: 6px; padding-right: 6px; }
+      .result-card { padding-left: 6vw; padding-right: 6vw; }
       .result-desc-list { width: 100%; }
       .result-actions { width: 100%; }
+      .result-coupon-msg { font-size: 0.93rem; padding: 8px 0;}
     }
   </style>
 </head>
 <body>
-  <div class="container" id="survey-container"></div>
+  <div class="container" id="app-container"></div>
   <script>
+    // 이미지3 예시 이미지 (실제 경로로 교체 가능)
+    const START_IMAGE_URL = "https://cdn.jsdelivr.net/gh/daangn/web-asset/example/camp-start.png";
     // 질문 및 옵션 예시
     const QUESTIONS = [
       {
@@ -393,16 +493,29 @@
         region: '레저 캠핑장'
       }
     };
-    // 진행 상태
     let currentStep = 0;
     let answers = [];
+    // 시작 페이지 랜더
+    function renderStartPage() {
+      document.getElementById('app-container').innerHTML = `
+        <div class="start-wrap">
+          <img class="start-img" src="${START_IMAGE_URL}" alt="캠핑스타일테스트 이미지">
+          <div class="start-title">나의 캠핑 스타일은?</div>
+          <div class="start-desc">나에게 잘 맞는 캠핑스타일을 알아보세요.<br>결과에 따라 쿠폰도 지급해드려요!</div>
+          <button class="start-btn" id="startBtn">테스트 시작하기</button>
+        </div>
+      `;
+      document.getElementById('startBtn').onclick = function() {
+        renderSurvey();
+      };
+    }
     function getProgressIcon(active) {
       return active
         ? `<span class="progress-circle" style="background: var(--progress-active); color: #fff; border: 2px solid var(--main-orange-dark);">&#127793;</span>`
         : `<span class="progress-circle">&#127793;</span>`;
     }
     function renderSurvey() {
-      const container = document.getElementById('survey-container');
+      const container = document.getElementById('app-container');
       container.innerHTML = `
         <div class="progress-bar-wrap">
           ${QUESTIONS.map((q, idx) => `
@@ -450,14 +563,13 @@
       }
       const type = Object.keys(scoreMap).reduce((a,b)=>scoreMap[a]>scoreMap[b]?a:b);
       const data = RESULT_DATA[type];
-      document.getElementById('survey-container').innerHTML = `
+      document.getElementById('app-container').innerHTML = `
         <div class="result-card">
-          <div class="result-title">${data.title}가 된 것을 축하합니다!</div>
+          <div class="result-title">축하드립니다! 당신은 <span style="color:var(--main-orange-dark);font-weight:800;">${data.title}</span>입니다</div>
+          <div class="result-subtitle">어울리는 쿠폰을 지급해드렸어요</div>
+          <div class="result-coupon-msg">쿠폰은 아래 버튼에서 바로 확인하세요</div>
           <div class="result-mainbox">
-            <span class="result-tag">${data.title} 자격증</span>
-            <span class="result-num">No. ${Math.floor(Math.random() * 9000) + 1000}</span>
             <img class="result-mainimg" src="${data.img}" alt="${data.title}">
-            <div class="result-username">${type === 'emotional' ? 'guest' : type}</div>
             <div class="result-detail-row">
               <span class="result-detail-key">부서</span>
               <span class="result-detail-val">${data.mainjob}</span>
@@ -471,8 +583,9 @@
             ${data.desc.map((d,i)=>`<li><span class="result-desc-emoji">${['🏅','🔍','🎓'][i]}</span>${d}</li>`).join('')}
           </ul>
           <div class="result-actions">
-            <button class="result-action-btn" id="shareBtn">공유하기</button>
-            <button class="result-action-btn" id="couponBtn">쿠폰받기</button>
+            <button class="result-action-btn coupon" id="couponBtn">쿠폰받기</button>
+            <button class="result-action-btn share" id="shareBtn">공유하기</button>
+            <button class="result-action-btn save" id="saveBtn">저장하기</button>
           </div>
         </div>
       `;
@@ -490,8 +603,12 @@
       document.getElementById('couponBtn').onclick = function() {
         window.location.href = 'https://snowlinemall.com/product/list.html?cate_no=424';
       };
+      document.getElementById('saveBtn').onclick = function() {
+        alert('이미지 저장은 모바일에서 화면 캡처로 가능합니다.');
+      };
     }
-    renderSurvey();
+    // 최초 시작화면
+    renderStartPage();
   </script>
 </body>
 </html>
